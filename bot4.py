@@ -19,9 +19,12 @@ def send_message(text):
 # ======================
 
 def get_sp500_universe():
-    url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-    table = pd.read_html(url)[0]
-    return table["Symbol"].tolist()
+    return [
+        "AAPL","MSFT","AMZN","NVDA","GOOGL","GOOG","META","TSLA","BRK-B","LLY",
+        "AVGO","JPM","V","UNH","XOM","MA","PG","JNJ","HD","CVX",
+        "MRK","ABBV","BAC","KO","PEP","COST","WMT","DIS","NFLX","CRM",
+        "ADBE","AMD","INTC","CSCO","ORCL","TMO","MCD","ABT","ACN","LIN"
+    ]
 
 def fix_symbol(symbol):
     return symbol.replace(".", "-")
