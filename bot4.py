@@ -19,18 +19,13 @@ def send_message(text):
 # ======================
 
 def get_sp500_universe():
-    return [
-        "AAPL","MSFT","AMZN","NVDA","GOOGL","GOOG","META","TSLA","BRK-B","LLY",
-        "AVGO","JPM","V","UNH","XOM","MA","PG","JNJ","HD","CVX",
-        "MRK","ABBV","BAC","KO","PEP","COST","WMT","DIS","NFLX","CRM",
-        "ADBE","AMD","INTC","CSCO","ORCL","TMO","MCD","ABT","ACN","LIN"
-    ]
+    import requests
 
-def fix_symbol(symbol):
-    return symbol.replace(".", "-")
+    url = "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/master/data/constituents.csv"
+    import pandas as pd
 
-def get_us_universe():
-    return [fix_symbol(x) for x in get_sp500_universe()]
+    df = pd.read_csv(url)
+    return df["Symbol"].tolist()
 
 # ======================
 # DATA
