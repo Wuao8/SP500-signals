@@ -18,7 +18,7 @@ def send_message(text):
 # S&P500 UNIVERSE
 # ======================
 
-def get_sp500_universe():
+def get_us_universe():
     import requests
 
     url = "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/master/data/constituents.csv"
