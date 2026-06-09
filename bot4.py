@@ -30,19 +30,20 @@ if __name__ == "__main__":
             price = float(m.get("lastTradePrice", 0))
             volume = float(m.get("volume", 0))
 
-            end_date = m.get("endDate") or m.get("end_date")
-            if not end_date:
-                continue
+           end_date = m.get("endDate") or m.get("end_date")
+           if not end_date:
+               continue
 
-            try:
-                if isinstance(end_date, (int, float)) or end_date.isdigit():
-                     end = datetime.utcfromtimestamp(int(end_date) / 1000)
-                else:
-                    end = datetime.fromisoformat(end_date.replace("Z", ""))
+           try:
+               if isinstance(end_date, (int, float)) or str(end_date).isdigit():
+                   end = datetime.utcfromtimestamp(int(end_date) / 1000)
+               else:
+                   end = datetime.fromisoformat(end_date.replace("Z", ""))
 
-              days_left = (end - now).total_seconds() / 86400
-         except:
-             continue
+               days_left = (end - now).total_seconds() / 86400
+
+          except:
+              continue
 
             # ===== SCORE SYSTEM (conservativo) =====
             score = 0
