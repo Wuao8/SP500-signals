@@ -75,7 +75,9 @@ def macd(df):
 # ======================
 
 def check_signal(df):
+
     df["ema20"] = ema20(df)
+
     macd_line, signal_line = macd(df)
 
     df["macd"] = macd_line
@@ -84,10 +86,16 @@ def check_signal(df):
     prev = df.iloc[-2]
     last = df.iloc[-1]
 
-    ema_cross = prev["Close"] < prev["ema20"] and last["Close"] > last["ema20"]
-    macd_cross = prev["macd"] < prev["signal"] and last["macd"] > last["signal"]
+    ema_cross = (
+        prev["Close"] < prev["ema20"]
+        and last["Close"] > last["ema20"]
+    )
 
-    return ema_cross and macd_cross
+    macd_bullish = (
+        last["macd"] > last["signal"]
+    )
+
+    return ema_cross and macd_bullish
 
 # ======================
 # SCAN ENGINE
