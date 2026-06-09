@@ -32,14 +32,14 @@ if __name__ == "__main__":
 
             end_date = m.get("endDate") or m.get("end_date")
 
-           if not end_date:
+         if not end_date:
               continue
 
-           try:
+         try:
                end = datetime.fromisoformat(str(end_date).replace("Z", ""))
                days_left = (end - now).total_seconds() / 86400
-           except:
-               continue
+         except:
+             continue
 
 # 🔥 FILTER SUBITO DOPO IL CALCOLO
            if days_left < 0:
