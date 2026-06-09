@@ -25,4 +25,4 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: python bot6.py
+        run: python bot4.py
