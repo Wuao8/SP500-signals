@@ -34,8 +34,15 @@ if __name__ == "__main__":
             if not end_date:
                 continue
 
-            end = datetime.fromisoformat(end_date.replace("Z", ""))
-            days_left = (end - now).days
+            try:
+                if isinstance(end_date, (int, float)) or end_date.isdigit():
+                     end = datetime.utcfromtimestamp(int(end_date) / 1000)
+                else:
+                    end = datetime.fromisoformat(end_date.replace("Z", ""))
+
+              days_left = (end - now).total_seconds() / 86400
+         except:
+             continue
 
             # ===== SCORE SYSTEM (conservativo) =====
             score = 0
