@@ -105,6 +105,6 @@ if __name__ == "__main__":
                 f"price: {s['price']} | "
                 f"vol: {s['volume']} | "
                 f"d-left: {round(s['days_left'], 1)}\n\n"
-           )
+            )
 
-       send_message(msg)
+        send_message(msg)
