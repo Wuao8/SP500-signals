@@ -54,9 +54,9 @@ if __name__ == "__main__":
             score = 0
 
             # 1. Extreme probability
-            if price >= 0.97 or price <= 0.03:
+            if price >= 0.95 or price <= 0.05:
                 score += 40
-            elif price >= 0.95 or price <= 0.05:
+            elif price >= 0.90 or price <= 0.10:
                 score += 25
 
             # 2. Time decay
