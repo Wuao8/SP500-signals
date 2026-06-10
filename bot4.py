@@ -32,46 +32,44 @@ if __name__ == "__main__":
 
             end_date = m.get("endDate") or m.get("end_date")
 
-         if not end_date:
-              continue
-
-         try:
-               end = datetime.fromisoformat(str(end_date).replace("Z", ""))
-               days_left = (end - now).total_seconds() / 86400
-         except:
-             continue
-
-# 🔥 FILTER SUBITO DOPO IL CALCOLO
-           if days_left < 0:
+            if not end_date:
                 continue
 
-           if days_left > 10:
+            try:
+                end = datetime.fromisoformat(
+                    str(end_date).replace("Z", "")
+                )
+                days_left = (end - now).total_seconds() / 86400
+            except:
                 continue
 
-        
+            # 🔥 FILTER SUBITO DOPO IL CALCOLO
+            if days_left < 0:
+                continue
 
-
+            if days_left > 10:
+                continue
 
             # ===== SCORE SYSTEM (conservativo) =====
             score = 0
 
-            # 1. Extreme probability (forte peso ma non assoluto)
+            # 1. Extreme probability
             if price >= 0.97 or price <= 0.03:
                 score += 40
             elif price >= 0.95 or price <= 0.05:
                 score += 25
 
-            # 2. Time decay (molto importante)
+            # 2. Time decay
             if days_left <= 1:
-                 score += 30
+                score += 30
             elif days_left <= 3:
-                  score += 25
+                score += 25
             elif days_left <= 7:
-                 score += 15
+                score += 15
             elif days_left <= 10:
-                 score += 5
+                score += 5
             else:
-                 continue
+                continue
 
             # 3. Volume filter
             if volume > 100000:
@@ -79,7 +77,7 @@ if __name__ == "__main__":
             elif volume > 10000:
                 score += 10
 
-            # 4. Safety filter (evita mercati morti)
+            # 4. Safety filter
             if volume == 0:
                 continue
 
@@ -95,7 +93,6 @@ if __name__ == "__main__":
         except:
             continue
 
-    # sort by score
     scored = sorted(scored, key=lambda x: x["score"], reverse=True)
 
     if not scored:
@@ -106,7 +103,10 @@ if __name__ == "__main__":
         for s in scored[:3]:
             msg += (
                 f"{s['name']}\n"
-                f"score: {s['score']} | price: {s['price']} | vol: {s['volume']} | d-left: {s['days_left']}\n\n"
+                f"score: {s['score']} | "
+                f"price: {s['price']} | "
+                f"vol: {s['volume']} | "
+                f"d-left: {round(s['days_left'], 1)}\n\n"
             )
 
         send_message(msg)
